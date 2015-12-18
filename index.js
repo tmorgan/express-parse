@@ -4,7 +4,6 @@ var memoize = require('memoizee');
 
 var authHeaders = { 'X-Parse-Application-Id': process.env.PARSE_APPLICATION_ID, 'X-Parse-REST-API-Key' : process.env.PARSE_REST_API_KEY };
 var masterHeaders = { 'X-Parse-Application-Id': process.env.PARSE_APPLICATION_ID, 'X-Parse-Master-Key' : process.env.PARSE_MASTER_KEY }
-console.log(authHeaders);
 
 if (process.env.PARSE_REST_API_KEY === undefined) throw new Error('No parse key');
 
@@ -66,7 +65,6 @@ Object.keys(module.exports).map(function(fname) {
 
 module.exports.auth = function (req, res, next) {
   var cb = function(err, user) {
-    console.log(err, user);
     if (err || !user) {
       res.status(403);
       res.json({});
@@ -79,7 +77,6 @@ module.exports.auth = function (req, res, next) {
     }
   }
   var token = req.query.token || req.body.token;
-  console.log(token);
   if (token) {
     module.exports.checkToken(token, cb);
   } else {
